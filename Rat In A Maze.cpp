@@ -33,11 +33,11 @@ void printMaze(int** maze, int numRows, int numCols)
 // Function to check if a move is valid
 bool isSafe(int** maze, int numRows, int numCols, int x, int y) 
 {
-    return (x >= 0 && x < numRows && y >= 0 && y < numCols && maze[x][y] == 1);
+    return (x >= 0 && x < numRows && y >= 0 && y < numCols && maze[x][y] == 1); 
     // x coordinate is more than 1 & x coordinate is not at last row //not going out of bounds
     // y coordinate is more than 1 & y coordinate is not at last column //not going out of bounds
     // the coordinate the loop is at doesn't have any wall on it
-    // then return true //it's safe to be there
+    // then return true //its's safe to be there
 }
 
 // Recursive function to solve the maze
