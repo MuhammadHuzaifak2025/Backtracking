@@ -1,3 +1,15 @@
+/*
+    Q1: In a university, there is an upcoming final exam for a large class, and the exam hall has a limited
+    number of seats arranged in rows and columns. You need to assign seats to students while satisfying
+    the following constraints:
+    a) Each student must be assigned a unique seat.
+    b) Some students have specific preferences for where they want to sit.
+    c) Certain seats are reserved for students with disabilities, and these seats cannot be assigned
+    to other students.
+    d) Students with the same last name cannot be assigned adjacent seats in the same row.
+    Provide a recursive algorithm to find a valid seating arrangement for the students while adhering to
+    all constraints. 
+*/
 #include <iostream>
 #include <algorithm>
 #include <cstring>
