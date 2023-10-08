@@ -1,0 +1,107 @@
+#include<iostream>
+using namespace std;
+
+// Function to print the found word solution
+void print_sol(int sol[5][5]){
+    string search_arr = "horizon";
+    for(int i =0; i< 5; i++){
+        for(int j =0; j< 5; j++){
+            if(sol[i][j]>0)
+                cout<<search_arr[sol[i][j]-1]<<" ";
+            else
+                cout<<"0"<<" ";
+        }
+        cout<<endl;
+    }
+}
+
+// Function to check if it's safe to move to a given position by checking the boundary conditions and 
+// by checking if the word given is available at that slot
+bool is_safe(char matrix[5][5], char word, int row, int col){
+    if(row >= 0 && col >= 0 && row < 5 && col < 5 && matrix[row][col] == word){
+        return true;
+    }
+    return false;
+}
+
+// Recursive function to search for the word in the matrix
+bool search(char matrix[5][5], int sol[5][5], int row, int col, int len){
+    string search_arr = "horizon";
+    
+    if(len == 8 && matrix[row][col] != 0){
+        return true; // Word found
+    }
+
+    if(is_safe(matrix, search_arr[len-1], row, col)){
+        if(sol[row][col] > 0){
+            return false; // Already visited this cell
+        }
+        sol[row][col] = len;
+
+        // Uncomment the following lines to understand the logic and dry run the code
+        // print_sol(sol);
+        // cout<<"\n";
+
+        ++len;
+
+        // Recursively search in all possible directions
+       if(search(matrix, sol, row+1, col, len)){
+            return true; // Search right
+        }    
+        if(search(matrix, sol, row, col+1, len)){
+            return true; // Search downwards
+        }    
+        if(search(matrix, sol, row, col-1, len)){
+            return true; // Search left
+        }    
+        if(search(matrix, sol, row-1, col, len)){
+            return true; // Search upwards
+        }    
+        if(search(matrix, sol, row-1, col-1, len)){
+            return true; // Search diagonally up-left
+        }    
+        if(search(matrix, sol, row+1, col+1, len)){
+            return true; // Search diagonally down-right
+        }    
+        if(search(matrix, sol, row+1, col-1, len)){
+            return true; // Search diagonally down-left
+        }    
+        if(search(matrix, sol, row-1, col+1, len)){
+            return true; // Search diagonally up-right
+        }
+        sol[row][col] = 0; // Backtrack if the word is not found
+    }
+    
+    return false;        
+}
+
+// Function to find the h's in a two Dimensional array and then call recursive function to solve the puzzle
+void find_solution(char matrix[5][5], int sol[5][5]){
+    for(int j = 0; j < 6; j++){
+        for(int i = 0; i < 6; i++){
+            if(matrix[i][j] == 'h'){
+                if(search(matrix, sol, i, j, 1)){
+                    print_sol(sol);
+                    return;
+                }           
+            }
+        }
+    }
+    cout<<"No solution exists";
+}
+
+int main(){
+    char matrix[5][5] = { 
+        { 't', 'z', 'x', 'c', 'd' },
+        { 'a', 'h', 'n', 'z', 'x' },
+        { 'h', 'w', 'o', 'i', 'o' },
+        { 'o', 'r', 'n', 'r', 'n' },
+        { 'a', 'b', 'r', 'i', 'n' }
+    };
+    
+    int sol[5][5] = {0};
+    
+    find_solution(matrix, sol);
+    
+    return 0;
+}
